@@ -3,6 +3,7 @@ package org.selenium.util;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -91,6 +92,17 @@ public final class Selenium2Utils{
 		
 		// found
 		
+		public static void waitForElementFoundByClassName( final WebDriver driver, final String className, final long timeout ){
+			Preconditions.checkNotNull( className );
+			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
+				@Override
+				public final Boolean apply( final WebDriver theDriver ){
+					theDriver.findElement( By.className( className ) );
+					return true;
+				}
+			} );
+		}
+		
 		public static void waitForElementFoundById( final WebDriver driver, final String id, final long timeout ){
 			Preconditions.checkNotNull( id );
 			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
@@ -136,6 +148,14 @@ public final class Selenium2Utils{
 					return true;
 				}
 			} );
+		}
+		public static void tryWaitForElementFoundByXPath( final WebDriver driver, final String xpath, final long timeout ){
+			try{
+				waitForElementFoundByXPath( driver, xpath, timeout );
+			}
+			catch( final TimeoutException e ){
+				// do nothing
+			}
 		}
 		
 		// has value
@@ -205,6 +225,9 @@ public final class Selenium2Utils{
 			catch( final TimeoutException e ){
 				// do nothing
 			}
+			catch( final StaleElementReferenceException e ){
+				// do nothing (but do investigate why it happens)
+			}
 		}
 		
 		// is enabled
@@ -254,6 +277,16 @@ public final class Selenium2Utils{
 				}
 			} );
 		}
+		public static void waitForElementDisplayedByLinkText( final WebDriver driver, final String linkText, final int timeout ){
+			Preconditions.checkNotNull( linkText );
+			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
+				@Override
+				public final Boolean apply( final WebDriver theDriver ){
+					final WebElement element = theDriver.findElement( By.linkText( linkText ) );
+					return element.isDisplayed();
+				}
+			} );
+		}
 		
 		public static void waitForElementDisplayedByXPath( final WebDriver driver, final String xpath, final long timeout ){
 			Preconditions.checkNotNull( xpath );
@@ -277,9 +310,18 @@ public final class Selenium2Utils{
 				}
 			} );
 		}
+		
 		public static void tryWaitForElementDisplayedByXPath( final WebDriver driver, final String xpath, final long timeout ){
 			try{
 				waitForElementDisplayedByXPath( driver, xpath, timeout );
+			}
+			catch( final TimeoutException timeoutEx ){
+				// do nothing
+			}
+		}
+		public static void tryWaitForElementDisplayedById( final WebDriver driver, final String id, final long timeout ){
+			try{
+				waitForElementDisplayedById( driver, id, timeout );
 			}
 			catch( final TimeoutException timeoutEx ){
 				// do nothing

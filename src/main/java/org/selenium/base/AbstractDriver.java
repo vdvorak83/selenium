@@ -34,12 +34,18 @@ public abstract class AbstractDriver{
 	
 	// API - errors of any kind
 	public final boolean anyProblem(){
+		// check out: http://code.google.com/p/selenium/issues/detail?id=2438
+		/*
 		if( this.isAlertPresent() ){
 			return true;
 		}
+		// TODO: at some point, this could check if an basic element of the page is active and if it is not, only then check for an alert
+		*/
+		
 		if( this.isErrorPopupPresent() ){
 			return true;
 		}
+		
 		if( this.isErrorEmbeddedPresent() ){
 			return true;
 		}
@@ -56,13 +62,18 @@ public abstract class AbstractDriver{
 		throw new UnsupportedOperationException();
 	}
 	public final boolean isAlertPresent(){
+		final long step0 = System.currentTimeMillis();
 		Alert alert = null;
 		try{
 			alert = this.driver.switchTo().alert();
 		}
 		catch( final NoAlertPresentException e ){
+			final long step1 = System.currentTimeMillis();
+			System.out.println( "1: " + ( step1 - step0 ) );
+			
 			return false;
 		}
+		
 		return Selenium2Utils.isAlertPresent( alert );
 	}
 	
