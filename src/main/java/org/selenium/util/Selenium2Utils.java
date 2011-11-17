@@ -103,6 +103,17 @@ public final class Selenium2Utils{
 			} );
 		}
 		
+		public static void waitForElementFoundByLinkText( final WebDriver driver, final String linkText, final long timeout ){
+			Preconditions.checkNotNull( linkText );
+			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
+				@Override
+				public final Boolean apply( final WebDriver theDriver ){
+					theDriver.findElement( By.linkText( linkText ) );
+					return true;
+				}
+			} );
+		}
+		
 		public static void waitForElementFoundById( final WebDriver driver, final String id, final long timeout ){
 			Preconditions.checkNotNull( id );
 			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
@@ -122,6 +133,15 @@ public final class Selenium2Utils{
 			}
 		}
 		
+		public static void tryWaitForElementNotFoundByLinkText( final WebDriver driver, final String id, final long timeout ){
+			try{
+				waitForElementNotFoundByLinkText( driver, id, timeout );
+			}
+			catch( final TimeoutException e ){
+				// do nothing
+			}
+		}
+		
 		public static void waitForElementNotFoundById( final WebDriver driver, final String id, final long timeout ){
 			Preconditions.checkNotNull( id );
 			
@@ -130,6 +150,23 @@ public final class Selenium2Utils{
 				public final Boolean apply( final WebDriver theDriver ){
 					try{
 						theDriver.findElement( By.id( id ) );
+					}
+					catch( final NoSuchElementException e ){
+						return true;
+					}
+					return false;
+				}
+			} );
+		}
+		
+		public static void waitForElementNotFoundByLinkText( final WebDriver driver, final String linkText, final long timeout ){
+			Preconditions.checkNotNull( linkText );
+			
+			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
+				@Override
+				public final Boolean apply( final WebDriver theDriver ){
+					try{
+						theDriver.findElement( By.linkText( linkText ) );
 					}
 					catch( final NoSuchElementException e ){
 						return true;
@@ -322,6 +359,15 @@ public final class Selenium2Utils{
 		public static void tryWaitForElementDisplayedById( final WebDriver driver, final String id, final long timeout ){
 			try{
 				waitForElementDisplayedById( driver, id, timeout );
+			}
+			catch( final TimeoutException timeoutEx ){
+				// do nothing
+			}
+		}
+		
+		public static void tryWaitForElementFoundByLinkText( final WebDriver driver, final String link, final int timeout ){
+			try{
+				waitForElementFoundByLinkText( driver, link, timeout );
 			}
 			catch( final TimeoutException timeoutEx ){
 				// do nothing

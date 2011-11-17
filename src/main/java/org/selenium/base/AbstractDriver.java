@@ -10,12 +10,6 @@ import com.google.common.base.Preconditions;
 /**
  * @author eparaschiv
  */
-/**
- * @author eparaschiv
- */
-/**
- * @author eparaschiv
- */
 public abstract class AbstractDriver{
 	
 	protected final WebDriver driver;

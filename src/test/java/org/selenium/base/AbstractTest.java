@@ -1,6 +1,7 @@
 package org.selenium.base;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,11 @@ public abstract class AbstractTest{
 	public static AbstractTest currentTest;
 	
 	// fixtures
+	
+	@Before
+	public void before(){
+		currentTest = this;
+	}
 	
 	@BeforeClass
 	public static void beforeClass(){
