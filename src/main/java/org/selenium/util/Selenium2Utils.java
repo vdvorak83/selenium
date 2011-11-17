@@ -103,6 +103,17 @@ public final class Selenium2Utils{
 			} );
 		}
 		
+		public static void waitForElementFoundByLinkText( final WebDriver driver, final String linkText, final long timeout ){
+			Preconditions.checkNotNull( linkText );
+			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
+				@Override
+				public final Boolean apply( final WebDriver theDriver ){
+					theDriver.findElement( By.linkText( linkText ) );
+					return true;
+				}
+			} );
+		}
+		
 		public static void waitForElementFoundById( final WebDriver driver, final String id, final long timeout ){
 			Preconditions.checkNotNull( id );
 			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
