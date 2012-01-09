@@ -100,6 +100,16 @@ public abstract class AbstractDriver{
 	public AbstractDriver wait( @SuppressWarnings( "unused" ) final int seconds ){
 		throw new UnsupportedOperationException();
 	}
+	public final AbstractDriver tryWait( final int seconds ){
+		try{
+			this.wait( seconds );
+		}
+		catch( final Exception e ){
+			// ignore
+		}
+		
+		return this;
+	}
 	
 	// navigation
 	
