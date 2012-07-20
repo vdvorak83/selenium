@@ -25,7 +25,7 @@ public final class SeleniumComponent{
 		this.driver.manage().timeouts().setScriptTimeout( 1000, TimeUnit.MILLISECONDS );
 		
 		this.driver.manage().window().setPosition( new Point( 0, 0 ) );
-		this.driver.manage().window().setSize( new Dimension( 1024, 768 ) );
+		this.driver.manage().window().setSize( new Dimension( 1280, 1024 ) );
 	}
 	// API
 	public final WebDriver getDriver(){
