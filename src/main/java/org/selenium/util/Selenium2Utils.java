@@ -103,6 +103,15 @@ public final class Selenium2Utils{
 			} );
 		}
 		
+		public static void tryWaitForElementFoundByClassName( final WebDriver driver, final String className, final long timeout ){
+			try{
+				waitForElementFoundByClassName( driver, className, timeout );
+			}
+			catch( final TimeoutException e ){
+				// do nothing
+			}
+		}
+		
 		public static void waitForElementFoundByLinkText( final WebDriver driver, final String linkText, final long timeout ){
 			Preconditions.checkNotNull( linkText );
 			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
@@ -124,6 +133,7 @@ public final class Selenium2Utils{
 				}
 			} );
 		}
+		
 		public static void tryWaitForElementFoundById( final WebDriver driver, final String id, final long timeout ){
 			try{
 				waitForElementFoundById( driver, id, timeout );
@@ -186,6 +196,7 @@ public final class Selenium2Utils{
 				}
 			} );
 		}
+		
 		public static void tryWaitForElementFoundByXPath( final WebDriver driver, final String xpath, final long timeout ){
 			try{
 				waitForElementFoundByXPath( driver, xpath, timeout );
@@ -255,6 +266,7 @@ public final class Selenium2Utils{
 				}
 			} );
 		}
+		
 		public static void tryWaitForElementContainsByXPath( final WebDriver driver, final String xpath, final String value, final long timeout ){
 			try{
 				waitForElementContainsByXPath( driver, xpath, value, timeout );
@@ -304,6 +316,7 @@ public final class Selenium2Utils{
 				}
 			} );
 		}
+		
 		public static void waitForElementNotDisplayedById( final WebDriver driver, final String id, final long timeout ){
 			Preconditions.checkNotNull( id );
 			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
@@ -314,6 +327,7 @@ public final class Selenium2Utils{
 				}
 			} );
 		}
+		
 		public static void waitForElementDisplayedByLinkText( final WebDriver driver, final String linkText, final int timeout ){
 			Preconditions.checkNotNull( linkText );
 			new WebDriverWait( driver, timeout ).until( new ExpectedCondition< Boolean >(){
@@ -336,6 +350,7 @@ public final class Selenium2Utils{
 				}
 			} );
 		}
+		
 		public static void waitForElementNotDisplayedByXPath( final WebDriver driver, final String xpath, final long timeout ){
 			Preconditions.checkNotNull( xpath );
 			
@@ -356,6 +371,7 @@ public final class Selenium2Utils{
 				// do nothing
 			}
 		}
+		
 		public static void tryWaitForElementDisplayedById( final WebDriver driver, final String id, final long timeout ){
 			try{
 				waitForElementDisplayedById( driver, id, timeout );
