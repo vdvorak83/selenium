@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.selenium.setup.DriverType;
 import org.selenium.setup.SeleniumComponent;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,7 +33,7 @@ public abstract class AbstractTest{
 	
 	@BeforeClass
 	public static void beforeClass(){
-		webDriver = new SeleniumComponent().getDriver();
+		webDriver = new SeleniumComponent().getDriver( DriverType.HTMLUNIT );
 	}
 	@AfterClass
 	public static void afterClass(){
