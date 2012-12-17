@@ -1,7 +1,5 @@
 <!-- ~ Copyright (C) 2011 Avaya Inc. All Rights Reserved. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org</groupId>
 	<artifactId>selenium</artifactId>
@@ -71,6 +69,31 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- logging -->
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<!-- <scope>runtime</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+			<!-- <scope>runtime</scope> --> <!-- some spring dependencies need to compile against jcl -->
+		</dependency>
+		<dependency> <!-- needed to bridge to slf4j for projects that use the log4j APIs directly -->
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -106,9 +129,10 @@
 	</build>
 
 	<properties>
-
 		<spring.version>3.2.0.RELEASE</spring.version>
-
+		
+		<org.slf4j.version>1.7.2</org.slf4j.version>
+		<logback.version>1.0.9</logback.version>
 	</properties>
 
 </project>

@@ -9,10 +9,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Maps;
 
 public final class SeleniumComponent{
+	protected final Logger logger = LoggerFactory.getLogger( this.getClass() );
+	
 	private final Map< DriverType, WebDriver > drivers;
 	
 	public SeleniumComponent(){
@@ -31,9 +35,11 @@ public final class SeleniumComponent{
 		WebDriver theDriver = null;
 		switch( driverType ){
 		case FIREFOX:
+			this.logger.info( "Using Firefox Driver" );
 			theDriver = this.initFirefoxDriver();
 			break;
 		case HTMLUNIT:
+			this.logger.info( "Using HtmlUnit Driver" );
 			theDriver = this.initHtmlUnitDriver();
 			break;
 		default:
