@@ -15,6 +15,11 @@ public abstract class AbstractBaseTest{
 	 * - note: this makes the concurrent execution of tests impossible (for now); when that is a goal - move this around as a parameter
 	 */
 	public static AbstractBaseTest currentTest;
+	public static DriverType driverType;
+	
+	public AbstractBaseTest(){
+		super();
+	}
 	
 	// fixtures
 	
@@ -25,7 +30,10 @@ public abstract class AbstractBaseTest{
 	
 	@BeforeClass
 	public static void beforeClass(){
-		webDriver = new SeleniumDriverUtil().getDriver( DriverType.HTMLUNIT );
+		if( driverType == null ){
+			driverType = DriverType.HTMLUNIT;
+		}
+		webDriver = new SeleniumDriverUtil().getDriver( driverType );
 	}
 	@AfterClass
 	public static void afterClass(){

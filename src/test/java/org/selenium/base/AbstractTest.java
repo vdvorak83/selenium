@@ -10,5 +10,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 	"classpath:/selenium_config.xml"
 } )// @formatter:on
 public abstract class AbstractTest extends AbstractBaseTest{
-	//
+	
+	public AbstractTest(){
+		super();
+	}
+	
 }
