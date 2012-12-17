@@ -11,17 +11,15 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Maps;
 
-@Component
-public class SeleniumComponent{
+public final class SeleniumDriverUtil{
 	protected final Logger logger = LoggerFactory.getLogger( this.getClass() );
 	
 	private final Map< DriverType, WebDriver > drivers;
 	
-	public SeleniumComponent(){
+	public SeleniumDriverUtil(){
 		super();
 		
 		this.drivers = Maps.newHashMap();
@@ -78,5 +76,4 @@ public class SeleniumComponent{
 		
 		return driver;
 	}
-	
 }

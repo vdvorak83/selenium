@@ -1,6 +1,6 @@
 package org.selenium.event;
 
-import org.selenium.base.AbstractTest;
+import org.selenium.base.AbstractBaseTest;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
@@ -9,8 +9,8 @@ public final class DriverChangeListener implements ApplicationListener< DriverCh
 	
 	@Override
 	public final void onApplicationEvent( final DriverChangeEvent event ){
-		if( AbstractTest.currentTest != null ){
-			AbstractTest.currentTest.setPageDriver( event.getDriver() );
+		if( AbstractBaseTest.currentTest != null ){
+			AbstractBaseTest.currentTest.setPageDriver( event.getDriver() );
 		}
 	}
 }
