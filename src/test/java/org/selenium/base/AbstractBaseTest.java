@@ -2,10 +2,8 @@ package org.selenium.base;
 
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.selenium.setup.DriverType;
-import org.selenium.setup.SeleniumDriverUtil;
 
 public abstract class AbstractBaseTest{
 	protected static WebDriver webDriver;
@@ -26,14 +24,6 @@ public abstract class AbstractBaseTest{
 	@Before
 	public void before(){
 		currentTest = this;
-	}
-	
-	@BeforeClass
-	public static void beforeClass(){
-		if( driverType == null ){
-			driverType = DriverType.HTMLUNIT;
-		}
-		webDriver = new SeleniumDriverUtil().getDriver( driverType );
 	}
 	@AfterClass
 	public static void afterClass(){
