@@ -7,9 +7,6 @@ import org.selenium.util.Selenium2Utils;
 
 import com.google.common.base.Preconditions;
 
-/**
- * @author eparaschiv
- */
 public abstract class AbstractDriver{
 	
 	protected final WebDriver driver;
@@ -83,9 +80,8 @@ public abstract class AbstractDriver{
 	 * Verifies that the current status of the page indeed matches this driver <br>
 	 * - note: this is meant to be overridden <br>
 	 */
-	@SuppressWarnings( "static-method" )
 	public boolean isHere(){
-		return true;
+		return this.getWebDriver().getCurrentUrl().equals( this.getBaseUri() );
 	}
 	
 	/**
@@ -113,13 +109,9 @@ public abstract class AbstractDriver{
 	
 	// navigation
 	
-	/**
-	 * This method navigates to the page managed by the current driver <br>
-	 * - note: this method is meant to be overridden <br>
-	 */
-	@SuppressWarnings( "static-method" )
 	public AbstractDriver navigateToCurrent(){
-		throw new UnsupportedOperationException();
+		this.getWebDriver().get( this.getBaseUri() );
+		return this.wait( 1 );
 	}
 	
 	public final String getCurrentUrl(){
@@ -132,6 +124,12 @@ public abstract class AbstractDriver{
 	
 	public final void forward(){
 		this.getWebDriver().navigate().forward();
+	}
+	
+	// template
+	
+	protected String getBaseUri(){
+		throw new UnsupportedOperationException( "This is meant to be extended" );
 	}
 	
 }
