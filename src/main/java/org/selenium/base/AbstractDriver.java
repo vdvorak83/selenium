@@ -85,17 +85,9 @@ public abstract class AbstractDriver {
         return this.getWebDriver().getCurrentUrl().equals(this.getBaseUri());
     }
 
-    /**
-     * Waits for a specific conditions that should be true on the current page (before verifying that it is indeed the current page) <br>
-     * - note: this is meant to be overridden <br>
-     * - note: this can be implemented naively - wait for a specific element from the page, or smarter <br>
-     * for example, when an action will navigate from page A to page B (so the correct page is B) <br>
-     * then the implementation can first wait 1 second, then check that an element from the wrong page (A) is present; if it is, then the action didn't work and there is no point in waiting any longer; <br>
-     * only then does it make sense to wait some more for the condition of the correct page (B)
-     */
-    @SuppressWarnings("static-method")
-    public AbstractDriver wait(@SuppressWarnings("unused") final int seconds) {
-        throw new UnsupportedOperationException();
+    public AbstractDriver wait(final int seconds) {
+        Selenium2Utils.Wait.waitForElementFoundById(this.getWebDriver(), this.getElementId(), seconds);
+        return this;
     }
 
     public final AbstractDriver tryWait(final int seconds) {
@@ -130,6 +122,10 @@ public abstract class AbstractDriver {
     // template
 
     protected String getBaseUri() {
+        throw new UnsupportedOperationException("This is meant to be extended");
+    }
+
+    protected String getElementId() {
         throw new UnsupportedOperationException("This is meant to be extended");
     }
 
