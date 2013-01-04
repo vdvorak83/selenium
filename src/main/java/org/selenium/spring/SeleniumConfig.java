@@ -5,14 +5,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@ComponentScan( { "org.selenium" } )
-@PropertySource( { "classpath:smoke-${smokeTarget:dev}.properties", "classpath:ui-${uiTarget:dev}.properties" } )
-public class SeleniumConfig{
-	
-	public SeleniumConfig(){
-		super();
-	}
-	
-	// beans
-	
+@ComponentScan({ "org.selenium" })
+@PropertySource({ "classpath:smoke-${smokeTarget:dev}.properties", "classpath:ui-${uiTarget:dev}.properties" })
+public class SeleniumConfig {
+
+    public SeleniumConfig() {
+        super();
+    }
+
+    // beans
+
 }

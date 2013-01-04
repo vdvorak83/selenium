@@ -1,7 +1,7 @@
 package org.selenium.interfaces;
 
-public interface IOK{
-	
-	void ok();
-	
+public interface IOK {
+
+    void ok();
+
 }

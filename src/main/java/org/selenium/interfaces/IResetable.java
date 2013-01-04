@@ -1,7 +1,7 @@
 package org.selenium.interfaces;
 
-public interface IResetable{
-	
-	void reset();
-	
+public interface IResetable {
+
+    void reset();
+
 }
