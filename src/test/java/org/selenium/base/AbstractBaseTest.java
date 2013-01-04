@@ -29,6 +29,7 @@ public abstract class AbstractBaseTest {
     @AfterClass
     public static void afterClass() {
         webDriver.quit();
+        webDriver = null;
     }
 
     //
