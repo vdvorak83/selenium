@@ -11,7 +11,11 @@ public class SmokeUriUtil {
     // API
 
     public static String getBaseUri() {
-        return get("http.protocol") + "://" + get("http.host") + ":" + get("http.port") + get("http.web.path");
+        return getRootUri() + get("http.web.path");
+    }
+
+    public static String getRootUri() {
+        return get("http.protocol") + "://" + get("http.host") + ":" + get("http.port");
     }
 
     // util
