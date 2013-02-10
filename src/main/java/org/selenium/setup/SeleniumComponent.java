@@ -72,10 +72,10 @@ public class SeleniumComponent {
     }
 
     private final WebDriver initHtmlUnitDriver() {
-        final WebDriver driver = new HtmlUnitDriver(true);
-        driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
-        driver.manage().timeouts().setScriptTimeout(1000, TimeUnit.MILLISECONDS);
-
+        final HtmlUnitDriver driver = new HtmlUnitDriver(true);
+        driver.manage().timeouts().implicitlyWait(750, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().setScriptTimeout(1500, TimeUnit.MILLISECONDS);
+        // driver.getw
         return driver;
     }
 
