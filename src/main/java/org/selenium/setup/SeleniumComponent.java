@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.google.common.collect.Maps;
 
 @Component
@@ -72,10 +73,11 @@ public class SeleniumComponent {
     }
 
     private final WebDriver initHtmlUnitDriver() {
-        final HtmlUnitDriver driver = new HtmlUnitDriver(true);
+        final HtmlUnitDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_10);
+        driver.setJavascriptEnabled(true);
         driver.manage().timeouts().implicitlyWait(750, TimeUnit.MILLISECONDS);
         driver.manage().timeouts().setScriptTimeout(1500, TimeUnit.MILLISECONDS);
-        // driver.getw
+
         return driver;
     }
 
