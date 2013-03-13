@@ -15,10 +15,18 @@ public class SmokeUriUtil {
     }
 
     public static String getRootUri() {
-        return get("http.protocol") + "://" + get("http.host") + ":" + get("http.port");
+        return get("http.protocol") + "://" + get("http.host") + getPort();
     }
 
     // util
+
+    static String getPort() {
+        final String port = get("http.port");
+        if (port.equals("80")) {
+            return "";
+        }
+        return ":" + port;
+    }
 
     static String get(final String key) {
         return SpringContext.context().getEnvironment().getProperty(key);
