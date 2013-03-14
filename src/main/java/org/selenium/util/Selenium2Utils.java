@@ -9,10 +9,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
 
 public final class Selenium2Utils {
+    static final Logger logger = LoggerFactory.getLogger(Selenium2Utils.class);
 
     private Selenium2Utils() {
         throw new AssertionError();
@@ -27,6 +30,7 @@ public final class Selenium2Utils {
         try {
             driver.findElement(By.xpath(xpathExpression));
         } catch (final NoSuchElementException e) {
+            logger.warn("", e);
             return false;
         }
 
@@ -41,6 +45,7 @@ public final class Selenium2Utils {
         try {
             driver.findElement(By.className(className));
         } catch (final NoSuchElementException e) {
+            logger.warn("", e);
             return false;
         }
 
@@ -55,6 +60,7 @@ public final class Selenium2Utils {
         try {
             driver.findElement(By.id(id));
         } catch (final NoSuchElementException e) {
+            logger.warn("", e);
             return false;
         }
 
@@ -148,7 +154,7 @@ public final class Selenium2Utils {
             try {
                 waitForElementFoundByClassName(driver, className, timeout);
             } catch (final TimeoutException e) {
-                // do nothing
+                logger.warn("", e);
             }
         }
 
@@ -178,7 +184,7 @@ public final class Selenium2Utils {
             try {
                 waitForElementFoundById(driver, id, timeout);
             } catch (final TimeoutException e) {
-                // do nothing
+                logger.warn("", e);
             }
         }
 
@@ -186,7 +192,7 @@ public final class Selenium2Utils {
             try {
                 waitForElementNotFoundByLinkText(driver, id, timeout);
             } catch (final TimeoutException e) {
-                // do nothing
+                logger.warn("", e);
             }
         }
 
@@ -199,6 +205,7 @@ public final class Selenium2Utils {
                     try {
                         theDriver.findElement(By.id(id));
                     } catch (final NoSuchElementException e) {
+                        logger.warn("", e);
                         return true;
                     }
                     return false;
@@ -215,6 +222,7 @@ public final class Selenium2Utils {
                     try {
                         theDriver.findElement(By.linkText(linkText));
                     } catch (final NoSuchElementException e) {
+                        logger.warn("", e);
                         return true;
                     }
                     return false;
@@ -237,7 +245,7 @@ public final class Selenium2Utils {
             try {
                 waitForElementFoundByXPath(driver, xpath, timeout);
             } catch (final TimeoutException e) {
-                // do nothing
+                logger.warn("", e);
             }
         }
 
@@ -306,9 +314,10 @@ public final class Selenium2Utils {
             try {
                 waitForElementContainsByXPath(driver, xpath, value, timeout);
             } catch (final TimeoutException e) {
-                // do nothing
+                logger.warn("", e);
             } catch (final StaleElementReferenceException e) {
                 // do nothing (but do investigate why it happens)
+                logger.warn("", e);
             }
         }
 
@@ -435,24 +444,24 @@ public final class Selenium2Utils {
         public static void tryWaitForElementDisplayedByXPath(final WebDriver driver, final String xpath, final long timeout) {
             try {
                 waitForElementDisplayedByXPath(driver, xpath, timeout);
-            } catch (final TimeoutException timeoutEx) {
-                // do nothing
+            } catch (final TimeoutException e) {
+                logger.info("", e);
             }
         }
 
         public static void tryWaitForElementDisplayedById(final WebDriver driver, final String id, final long timeout) {
             try {
                 waitForElementDisplayedById(driver, id, timeout);
-            } catch (final TimeoutException timeoutEx) {
-                // do nothing
+            } catch (final TimeoutException e) {
+                logger.info("", e);
             }
         }
 
         public static void tryWaitForElementFoundByLinkText(final WebDriver driver, final String link, final int timeout) {
             try {
                 waitForElementFoundByLinkText(driver, link, timeout);
-            } catch (final TimeoutException timeoutEx) {
-                // do nothing
+            } catch (final TimeoutException e) {
+                logger.info("", e);
             }
         }
 
@@ -466,6 +475,7 @@ public final class Selenium2Utils {
         try {
             alertText = alertArg.getText();
         } catch (final Exception e) {
+            logger.warn("", e);
             return false;
         }
 
