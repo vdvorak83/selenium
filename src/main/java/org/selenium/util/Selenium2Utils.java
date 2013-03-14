@@ -34,6 +34,20 @@ public final class Selenium2Utils {
 
     }
 
+    public static boolean isElementPresentByClassName(final WebDriver driver, final String className) {
+        Preconditions.checkNotNull(driver);
+        Preconditions.checkNotNull(className);
+
+        try {
+            driver.findElement(By.className(className));
+        } catch (final NoSuchElementException e) {
+            return false;
+        }
+
+        return true;
+
+    }
+
     public static boolean isElementPresentById(final WebDriver driver, final String id) {
         Preconditions.checkNotNull(driver);
         Preconditions.checkNotNull(id);
@@ -47,9 +61,6 @@ public final class Selenium2Utils {
         return true;
     }
 
-    /**
-     * - note: if the element is not present, then false is returned
-     */
     public static boolean isElementEnabledById(final WebDriver driver, final String id) {
         Preconditions.checkNotNull(driver);
         Preconditions.checkNotNull(id);
@@ -61,9 +72,30 @@ public final class Selenium2Utils {
         return driver.findElement(By.id(id)).isEnabled();
     }
 
-    /**
-     * - note: if the element is not present, then false is returned
-     */
+    public static boolean isElementEnabledByXPath(final WebDriver driver, final String xpath) {
+        Preconditions.checkNotNull(driver);
+        Preconditions.checkNotNull(xpath);
+
+        if (!isElementPresentByXPath(driver, xpath)) {
+            return false;
+        }
+
+        return driver.findElement(By.xpath(xpath)).isEnabled();
+    }
+
+    public static boolean isElementEnabledByClassName(final WebDriver driver, final String className) {
+        Preconditions.checkNotNull(driver);
+        Preconditions.checkNotNull(className);
+
+        if (!isElementPresentByClassName(driver, className)) {
+            return false;
+        }
+
+        return driver.findElement(By.className(className)).isEnabled();
+    }
+
+    // is displayed
+
     public static boolean isElementDisplayedById(final WebDriver driver, final String id) {
         Preconditions.checkNotNull(driver);
         Preconditions.checkNotNull(id);
@@ -84,6 +116,17 @@ public final class Selenium2Utils {
         }
 
         return driver.findElement(By.xpath(xpath)).isDisplayed();
+    }
+
+    public static boolean isElementDisplayedByClassName(final WebDriver driver, final String className) {
+        Preconditions.checkNotNull(driver);
+        Preconditions.checkNotNull(className);
+
+        if (!isElementPresentByClassName(driver, className)) {
+            return false;
+        }
+
+        return driver.findElement(By.className(className)).isDisplayed();
     }
 
     public static final class Wait {
@@ -282,6 +325,17 @@ public final class Selenium2Utils {
             });
         }
 
+        public static void waitForElementEnabledByClassName(final WebDriver driver, final String className, final long timeout) {
+            Preconditions.checkNotNull(className);
+            new WebDriverWait(driver, timeout).until(new ExpectedCondition<Boolean>() {
+                @Override
+                public final Boolean apply(final WebDriver theDriver) {
+                    final WebElement element = theDriver.findElement(By.className(className));
+                    return element.isEnabled();
+                }
+            });
+        }
+
         public static void waitForElementEnabledByXPath(final WebDriver driver, final String xpath, final long timeout) {
             Preconditions.checkNotNull(xpath);
 
@@ -302,6 +356,17 @@ public final class Selenium2Utils {
                 @Override
                 public final Boolean apply(final WebDriver theDriver) {
                     final WebElement element = theDriver.findElement(By.id(id));
+                    return element.isDisplayed();
+                }
+            });
+        }
+
+        public static void waitForElementDisplayedByClassName(final WebDriver driver, final String className, final long timeout) {
+            Preconditions.checkNotNull(className);
+            new WebDriverWait(driver, timeout).until(new ExpectedCondition<Boolean>() {
+                @Override
+                public final Boolean apply(final WebDriver theDriver) {
+                    final WebElement element = theDriver.findElement(By.className(className));
                     return element.isDisplayed();
                 }
             });
@@ -341,6 +406,8 @@ public final class Selenium2Utils {
             });
         }
 
+        // not displayed
+
         public static void waitForElementNotDisplayedByXPath(final WebDriver driver, final String xpath, final long timeout) {
             Preconditions.checkNotNull(xpath);
 
@@ -348,6 +415,18 @@ public final class Selenium2Utils {
                 @Override
                 public final Boolean apply(final WebDriver theDriver) {
                     final WebElement element = theDriver.findElement(By.xpath(xpath));
+                    return !element.isDisplayed();
+                }
+            });
+        }
+
+        public static void waitForElementNotDisplayedByClassName(final WebDriver driver, final String className, final long timeout) {
+            Preconditions.checkNotNull(className);
+
+            new WebDriverWait(driver, timeout).until(new ExpectedCondition<Boolean>() {
+                @Override
+                public final Boolean apply(final WebDriver theDriver) {
+                    final WebElement element = theDriver.findElement(By.className(className));
                     return !element.isDisplayed();
                 }
             });
