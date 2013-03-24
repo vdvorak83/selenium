@@ -73,7 +73,7 @@ public class SeleniumComponent {
     }
 
     private final WebDriver initHtmlUnitDriver() {
-        final HtmlUnitDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_10);
+        final HtmlUnitDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_17);
         driver.setJavascriptEnabled(true);
         driver.manage().timeouts().implicitlyWait(750, TimeUnit.MILLISECONDS);
         driver.manage().timeouts().setScriptTimeout(1500, TimeUnit.MILLISECONDS);

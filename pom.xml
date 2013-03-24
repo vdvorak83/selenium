@@ -1,5 +1,6 @@
 <!-- ~ Copyright (C) 2011 Avaya Inc. All Rights Reserved. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org</groupId>
 	<artifactId>selenium</artifactId>
@@ -7,6 +8,22 @@
 
 	<dependencies>
 
+		<!-- ui -->
+		
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>2.31.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<version>2.12</version>
+		</dependency>
+
+		<!-- other -->
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -17,12 +34,6 @@
 					<groupId>commons-logging</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-server</artifactId>
-			<version>2.31.0</version>
 		</dependency>
 
 		<dependency>
@@ -99,7 +110,8 @@
 	<build>
 		<plugins>
 
-			<!-- this create jar file of code from src/test/java so modules with tests can share code -->
+			<!-- this create jar file of code from src/test/java so modules with tests 
+				can share code -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -130,7 +142,7 @@
 
 	<properties>
 		<spring.version>3.2.2.RELEASE</spring.version>
-		
+
 		<org.slf4j.version>1.7.3</org.slf4j.version>
 		<logback.version>1.0.10</logback.version>
 	</properties>
