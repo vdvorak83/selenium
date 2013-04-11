@@ -33,11 +33,7 @@ public abstract class AbstractDriver {
         // TODO: at some point, this could check if an basic element of the page is active and if it is not, only then check for an alert
         */
 
-        if (this.isErrorPopupPresent()) {
-            return true;
-        }
-
-        if (this.isErrorEmbeddedPresent()) {
+        if (this.isErrorPresent()) {
             return true;
         }
 
@@ -45,12 +41,7 @@ public abstract class AbstractDriver {
     }
 
     @SuppressWarnings("static-method")
-    public boolean isErrorPopupPresent() {
-        throw new UnsupportedOperationException();
-    }
-
-    @SuppressWarnings("static-method")
-    public boolean isErrorEmbeddedPresent() {
+    public boolean isErrorPresent() {
         throw new UnsupportedOperationException();
     }
 
