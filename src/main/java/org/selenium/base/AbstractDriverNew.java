@@ -19,6 +19,7 @@ public abstract class AbstractDriverNew<D extends AbstractDriverNew<D>> {
     }
 
     //
+
     public final WebDriver getWebDriver() {
         return this.driver;
     }
@@ -89,6 +90,20 @@ public abstract class AbstractDriverNew<D extends AbstractDriverNew<D>> {
         }
 
         return (D) this;
+    }
+
+    // checks
+
+    public final boolean containsPartialText(final String text) {
+        return Selenium2Utils.isElementDisplayedByPartialText(this.getWebDriver(), text);
+    }
+
+    public final boolean containsLinkText(final String linkText) {
+        return Selenium2Utils.isElementDisplayedByLinkText(this.getWebDriver(), linkText);
+    }
+
+    public final boolean containsPartialLinkText(final String partialLinkText) {
+        return Selenium2Utils.isElementDisplayedByPartialLinkText(this.getWebDriver(), partialLinkText);
     }
 
     // navigation

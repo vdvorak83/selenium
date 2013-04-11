@@ -38,6 +38,36 @@ public final class Selenium2Utils {
 
     }
 
+    public static boolean isElementPresentByLinkText(final WebDriver driver, final String linkText) {
+        Preconditions.checkNotNull(driver);
+        Preconditions.checkNotNull(linkText);
+
+        try {
+            driver.findElement(By.linkText(linkText));
+        } catch (final NoSuchElementException e) {
+            logger.warn("", e);
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public static boolean isElementPresentByPartialLinkText(final WebDriver driver, final String partialLinkText) {
+        Preconditions.checkNotNull(driver);
+        Preconditions.checkNotNull(partialLinkText);
+
+        try {
+            driver.findElement(By.partialLinkText(partialLinkText));
+        } catch (final NoSuchElementException e) {
+            logger.warn("", e);
+            return false;
+        }
+
+        return true;
+
+    }
+
     public static boolean isElementPresentByClassName(final WebDriver driver, final String className) {
         Preconditions.checkNotNull(driver);
         Preconditions.checkNotNull(className);
@@ -113,6 +143,10 @@ public final class Selenium2Utils {
         return driver.findElement(By.id(id)).isDisplayed();
     }
 
+    public static boolean isElementDisplayedByPartialText(final WebDriver driver, final String partialText) {
+        return isElementDisplayedByXPath(driver, "//*[contains(text(), '" + partialText + "')]");
+    }
+
     public static boolean isElementDisplayedByXPath(final WebDriver driver, final String xpath) {
         Preconditions.checkNotNull(driver);
         Preconditions.checkNotNull(xpath);
@@ -122,6 +156,28 @@ public final class Selenium2Utils {
         }
 
         return driver.findElement(By.xpath(xpath)).isDisplayed();
+    }
+
+    public static boolean isElementDisplayedByLinkText(final WebDriver driver, final String linkText) {
+        Preconditions.checkNotNull(driver);
+        Preconditions.checkNotNull(linkText);
+
+        if (!isElementPresentByLinkText(driver, linkText)) {
+            return false;
+        }
+
+        return driver.findElement(By.linkText(linkText)).isDisplayed();
+    }
+
+    public static boolean isElementDisplayedByPartialLinkText(final WebDriver driver, final String partialLinkText) {
+        Preconditions.checkNotNull(driver);
+        Preconditions.checkNotNull(partialLinkText);
+
+        if (!isElementPresentByPartialLinkText(driver, partialLinkText)) {
+            return false;
+        }
+
+        return driver.findElement(By.partialLinkText(partialLinkText)).isDisplayed();
     }
 
     public static boolean isElementDisplayedByClassName(final WebDriver driver, final String className) {
