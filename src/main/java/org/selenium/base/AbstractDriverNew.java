@@ -74,7 +74,15 @@ public abstract class AbstractDriverNew<D extends AbstractDriverNew<D>> {
      * - note: this is meant to be overridden <br>
      */
     public boolean isHere() {
-        return this.getWebDriver().getCurrentUrl().equals(this.getBaseUri());
+        String currentUrl = this.getWebDriver().getCurrentUrl();
+        if (currentUrl.endsWith("/")) {
+            currentUrl = currentUrl.substring(0, currentUrl.length() - 1);
+        }
+        String baseUri = this.getBaseUri();
+        if (baseUri.endsWith("/")) {
+            baseUri = baseUri.substring(0, baseUri.length() - 1);
+        }
+        return currentUrl.equals(baseUri);
     }
 
     public D wait(final int seconds) {
