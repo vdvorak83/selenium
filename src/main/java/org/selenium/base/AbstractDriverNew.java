@@ -110,7 +110,7 @@ public abstract class AbstractDriverNew<D extends AbstractDriverNew<D>> {
 
     public D navigateToCurrent() {
         this.getWebDriver().get(this.getBaseUri());
-        return this.wait(1);
+        return this.wait(3);
     }
 
     public final String getCurrentUrl() {
