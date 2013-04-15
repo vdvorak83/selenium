@@ -7,11 +7,11 @@ import org.selenium.util.Selenium2Utils;
 
 import com.google.common.base.Preconditions;
 
-public abstract class AbstractDriverNew<D extends AbstractDriverNew<D>> {
+public abstract class AbstractDriverOld {
 
     protected final WebDriver driver;
 
-    public AbstractDriverNew(final WebDriver driverToSet) {
+    public AbstractDriverOld(final WebDriver driverToSet) {
         super();
 
         Preconditions.checkNotNull(driverToSet);
@@ -19,7 +19,6 @@ public abstract class AbstractDriverNew<D extends AbstractDriverNew<D>> {
     }
 
     //
-
     public final WebDriver getWebDriver() {
         return this.driver;
     }
@@ -74,51 +73,29 @@ public abstract class AbstractDriverNew<D extends AbstractDriverNew<D>> {
      * - note: this is meant to be overridden <br>
      */
     public boolean isHere() {
-        String currentUrl = this.getWebDriver().getCurrentUrl();
-        if (currentUrl.endsWith("/")) {
-            currentUrl = currentUrl.substring(0, currentUrl.length() - 1);
-        }
-        String baseUri = this.getBaseUri();
-        if (baseUri.endsWith("/")) {
-            baseUri = baseUri.substring(0, baseUri.length() - 1);
-        }
-        return currentUrl.equals(baseUri);
+        return this.getWebDriver().getCurrentUrl().equals(this.getBaseUri());
     }
 
-    public D wait(final int seconds) {
+    public AbstractDriverOld wait(final int seconds) {
         Selenium2Utils.Wait.waitForElementFoundById(this.getWebDriver(), this.getElementId(), seconds);
-        return (D) this;
+        return this;
     }
 
-    public final D tryWait(final int seconds) {
+    public final AbstractDriverOld tryWait(final int seconds) {
         try {
             this.wait(seconds);
         } catch (final Exception e) {
             // ignore
         }
 
-        return (D) this;
-    }
-
-    // checks
-
-    public final boolean containsPartialText(final String text) {
-        return Selenium2Utils.isElementDisplayedByPartialText(this.getWebDriver(), text);
-    }
-
-    public final boolean containsLinkText(final String linkText) {
-        return Selenium2Utils.isElementDisplayedByLinkText(this.getWebDriver(), linkText);
-    }
-
-    public final boolean containsPartialLinkText(final String partialLinkText) {
-        return Selenium2Utils.isElementDisplayedByPartialLinkText(this.getWebDriver(), partialLinkText);
+        return this;
     }
 
     // navigation
 
-    public D navigateToCurrent() {
+    public AbstractDriverOld navigateToCurrent() {
         this.getWebDriver().get(this.getBaseUri());
-        return this.wait(3);
+        return this.wait(1);
     }
 
     public final String getCurrentUrl() {

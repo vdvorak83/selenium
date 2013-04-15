@@ -5,10 +5,10 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class DriverChangeListener implements ApplicationListener<DriverChangeEvent> {
+public final class DriverChangeListener implements ApplicationListener<DriverChangeEventOld> {
 
     @Override
-    public final void onApplicationEvent(final DriverChangeEvent event) {
+    public final void onApplicationEvent(final DriverChangeEventOld event) {
         if (AbstractBaseTest.currentTest != null) {
             AbstractBaseTest.currentTest.setPageDriver(event.getDriver());
         }

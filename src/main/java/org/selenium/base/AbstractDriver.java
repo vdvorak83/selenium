@@ -7,7 +7,7 @@ import org.selenium.util.Selenium2Utils;
 
 import com.google.common.base.Preconditions;
 
-public abstract class AbstractDriver {
+public abstract class AbstractDriver<D extends AbstractDriver<D>> {
 
     protected final WebDriver driver;
 
@@ -19,6 +19,7 @@ public abstract class AbstractDriver {
     }
 
     //
+
     public final WebDriver getWebDriver() {
         return this.driver;
     }
@@ -73,29 +74,51 @@ public abstract class AbstractDriver {
      * - note: this is meant to be overridden <br>
      */
     public boolean isHere() {
-        return this.getWebDriver().getCurrentUrl().equals(this.getBaseUri());
+        String currentUrl = this.getWebDriver().getCurrentUrl();
+        if (currentUrl.endsWith("/")) {
+            currentUrl = currentUrl.substring(0, currentUrl.length() - 1);
+        }
+        String baseUri = this.getBaseUri();
+        if (baseUri.endsWith("/")) {
+            baseUri = baseUri.substring(0, baseUri.length() - 1);
+        }
+        return currentUrl.equals(baseUri);
     }
 
-    public AbstractDriver wait(final int seconds) {
+    public D wait(final int seconds) {
         Selenium2Utils.Wait.waitForElementFoundById(this.getWebDriver(), this.getElementId(), seconds);
-        return this;
+        return (D) this;
     }
 
-    public final AbstractDriver tryWait(final int seconds) {
+    public final D tryWait(final int seconds) {
         try {
             this.wait(seconds);
         } catch (final Exception e) {
             // ignore
         }
 
-        return this;
+        return (D) this;
+    }
+
+    // checks
+
+    public final boolean containsPartialText(final String text) {
+        return Selenium2Utils.isElementDisplayedByPartialText(this.getWebDriver(), text);
+    }
+
+    public final boolean containsLinkText(final String linkText) {
+        return Selenium2Utils.isElementDisplayedByLinkText(this.getWebDriver(), linkText);
+    }
+
+    public final boolean containsPartialLinkText(final String partialLinkText) {
+        return Selenium2Utils.isElementDisplayedByPartialLinkText(this.getWebDriver(), partialLinkText);
     }
 
     // navigation
 
-    public AbstractDriver navigateToCurrent() {
+    public D navigateToCurrent() {
         this.getWebDriver().get(this.getBaseUri());
-        return this.wait(1);
+        return this.wait(3);
     }
 
     public final String getCurrentUrl() {
