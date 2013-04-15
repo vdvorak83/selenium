@@ -2,12 +2,12 @@ package org.selenium.driver;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.selenium.base.AbstractDriverOld;
+import org.selenium.base.AbstractDriver;
 import org.selenium.util.Selenium2Utils;
 
 import com.google.common.base.Preconditions;
 
-public final class ConfirmationDriver<D extends AbstractDriverOld> extends AbstractDriverOld {
+public final class ConfirmationDriver<D extends AbstractDriver<D>> extends AbstractDriver<D> {
 
     private final D sourceDriver;
 

@@ -7,7 +7,7 @@ import org.selenium.setup.DriverType;
 
 public abstract class AbstractBaseTest {
     protected static WebDriver webDriver;
-    private AbstractDriverOld pageDriver;
+    private AbstractDriver pageDriver;
 
     /**
      * - note: this makes the concurrent execution of tests impossible (for now); when that is a goal - move this around as a parameter
@@ -34,7 +34,7 @@ public abstract class AbstractBaseTest {
 
     //
 
-    public final <D extends AbstractDriverOld> D getDriver() {
+    public final <D extends AbstractDriver<D>> D getDriver() {
         return (D) this.pageDriver;
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractBaseTest {
         return webDriver;
     }
 
-    public final void setPageDriver(final AbstractDriverOld pageDriverToSet) {
+    public final void setPageDriver(final AbstractDriver pageDriverToSet) {
         this.pageDriver = pageDriverToSet;
     }
 
