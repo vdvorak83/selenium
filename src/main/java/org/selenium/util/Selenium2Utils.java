@@ -314,7 +314,7 @@ public final class Selenium2Utils {
                 public final Boolean apply(final WebDriver theDriver) {
                     final WebElement element = theDriver.findElement(By.id(id));
                     final String textValueOfElement = element.getText();
-                    final boolean hasText = (textValueOfElement != null) && !textValueOfElement.isEmpty();
+                    final boolean hasText = textValueOfElement != null && !textValueOfElement.isEmpty();
                     return hasText;
                 }
             });
@@ -328,7 +328,7 @@ public final class Selenium2Utils {
                 public final Boolean apply(final WebDriver theDriver) {
                     final WebElement element = theDriver.findElement(By.xpath(xpath));
                     final String textValueOfElement = element.getText();
-                    final boolean hasText = (textValueOfElement != null) && !textValueOfElement.isEmpty();
+                    final boolean hasText = textValueOfElement != null && !textValueOfElement.isEmpty();
                     return hasText;
                 }
             });
@@ -345,7 +345,7 @@ public final class Selenium2Utils {
                 public final Boolean apply(final WebDriver theDriver) {
                     final WebElement element = theDriver.findElement(By.id(id));
                     final String textValueOfElement = element.getText();
-                    final boolean hasText = (textValueOfElement != null) && !textValueOfElement.isEmpty() && textValueOfElement.contains(value);
+                    final boolean hasText = textValueOfElement != null && !textValueOfElement.isEmpty() && textValueOfElement.contains(value);
                     return hasText;
                 }
             });
@@ -360,7 +360,7 @@ public final class Selenium2Utils {
                 public final Boolean apply(final WebDriver theDriver) {
                     final WebElement element = theDriver.findElement(By.xpath(xpath));
                     final String textValueOfElement = element.getText();
-                    final boolean hasText = (textValueOfElement != null) && !textValueOfElement.isEmpty() && textValueOfElement.contains(value);
+                    final boolean hasText = textValueOfElement != null && !textValueOfElement.isEmpty() && textValueOfElement.contains(value);
                     return hasText;
                 }
             });

@@ -36,11 +36,11 @@ public final class SeleniumDriverUtil {
         switch (driverType) {
         case FIREFOX:
             this.logger.info("Using Firefox Driver");
-            theDriver = this.initFirefoxDriver();
+            theDriver = initFirefoxDriver();
             break;
         case HTMLUNIT:
             this.logger.info("Using HtmlUnit Driver");
-            theDriver = this.initHtmlUnitDriver();
+            theDriver = initHtmlUnitDriver();
             break;
         default:
             break;
