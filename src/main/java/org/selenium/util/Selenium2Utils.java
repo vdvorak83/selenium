@@ -525,7 +525,7 @@ public final class Selenium2Utils {
 
     // other
 
-    public final static boolean isAlertPresent(final Alert alertArg) {
+    public static final boolean isAlertPresent(final Alert alertArg) {
         Preconditions.checkNotNull(alertArg);
         String alertText = null;
         try {
