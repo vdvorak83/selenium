@@ -189,7 +189,7 @@
         <httpclient.version>4.2.5</httpclient.version>
         
         <!-- logging -->
-        <org.slf4j.version>1.7.5</org.slf4j.version>
+        <org.slf4j.version>1.7.30</org.slf4j.version>
         <logback.version>1.0.11</logback.version>
 
         <!-- maven plugins -->
